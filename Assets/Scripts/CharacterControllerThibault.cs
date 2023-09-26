@@ -14,6 +14,8 @@ public class CharacterControllerThibault : MonoBehaviour
     private Vector2 gravityMove, inputMove, jumpMove;
     private bool isGrounded, canJump;
     public float inertie;
+
+    private bool isMoving;
     
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,11 @@ public class CharacterControllerThibault : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isMoving == false)
+        {
+            PhysicSystem.TargetSpeedX(po, 0, inertie);
+        }
+
     }
 
     private void Gravity()
@@ -54,18 +61,17 @@ public class CharacterControllerThibault : MonoBehaviour
     //Method appelée en Event par l'InputSystem 
     public void Move(InputAction.CallbackContext context)
     {
-        Debug.Log(1);
         if (context.phase == InputActionPhase.Started)
         {
-            
+            isMoving = true;
         }
         if (context.phase == InputActionPhase.Performed)
         {
-            PhysicSystem.TargetSpeed(po, speedMax*Vector2.right, inertie);
+            PhysicSystem.TargetSpeedX(po, speedMax*context.ReadValue<Vector2>().x, inertie);
         }
         if (context.phase == InputActionPhase.Canceled)
         {
-            po.speed = Vector2.zero;
+            isMoving = false;
         }
 
         inputMove *= speedMax;

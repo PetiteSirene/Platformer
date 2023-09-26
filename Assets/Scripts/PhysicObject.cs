@@ -13,6 +13,7 @@ public class PhysicObject : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(speed);
         transform.Translate(speed * Time.deltaTime);     
     }
 }
