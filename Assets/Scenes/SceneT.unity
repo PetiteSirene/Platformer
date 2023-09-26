@@ -134,10 +134,11 @@ GameObject:
   - component: {fileID: 282660037}
   - component: {fileID: 282660036}
   - component: {fileID: 282660035}
-  - component: {fileID: 282660034}
   - component: {fileID: 282660033}
   - component: {fileID: 282660032}
   - component: {fileID: 282660031}
+  - component: {fileID: 282660038}
+  - component: {fileID: 282660039}
   m_Layer: 0
   m_Name: Player_Thibault
   m_TagString: Untagged
@@ -244,8 +245,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 282660034}
-        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+      - m_Target: {fileID: 282660038}
+        m_TargetAssemblyTypeName: CharacterControllerThibault, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -264,8 +265,8 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 282660034}
-        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+      - m_Target: {fileID: 282660038}
+        m_TargetAssemblyTypeName: CharacterControllerThibault, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
         m_Arguments:
@@ -323,21 +324,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &282660034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282660030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5028d48644215504e84b4fb6a47ce7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravityForce: 0.06
-  speedMax: 0.4
-  jumpForce: 0.2
 --- !u!23 &282660035
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -397,12 +383,42 @@ Transform:
   m_GameObject: {fileID: 282660030}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &282660038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282660030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5631e4a3291305e4cb37be3bf9697935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  po: {fileID: 0}
+  gravityForce: 0.05
+  speedMax: 6
+  jumpForce: 3
+  inertie: 0
+--- !u!114 &282660039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282660030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7328423f6e97a4846a71e206f341ff17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: 0, y: 0}
 --- !u!1 &324459681
 GameObject:
   m_ObjectHideFlags: 0

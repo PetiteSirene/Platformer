@@ -8,22 +8,22 @@ using UnityEngine.InputSystem.HID;
 
 public class CharacterControllerThibault : MonoBehaviour
 {
+    public PhysicObject po;
     public float gravityForce, speedMax, jumpForce;
     
     private Vector2 gravityMove, inputMove, jumpMove;
     private bool isGrounded, canJump;
+    public float inertie;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        po = GetComponent<PhysicObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(gravityMove + inputMove + jumpMove);
-        Gravity();
     }
 
     private void Gravity()
@@ -54,17 +54,18 @@ public class CharacterControllerThibault : MonoBehaviour
     //Method appelée en Event par l'InputSystem 
     public void Move(InputAction.CallbackContext context)
     {
+        Debug.Log(1);
         if (context.phase == InputActionPhase.Started)
         {
             
         }
         if (context.phase == InputActionPhase.Performed)
         {
-            inputMove.x = context.ReadValue<Vector2>().x;
+            PhysicSystem.TargetSpeed(po, speedMax*Vector2.right, inertie);
         }
         if (context.phase == InputActionPhase.Canceled)
         {
-            inputMove.x = 0;
+            po.speed = Vector2.zero;
         }
 
         inputMove *= speedMax;
