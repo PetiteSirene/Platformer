@@ -403,9 +403,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   po: {fileID: 0}
   gravityForce: 0.05
-  speedMax: 6
+  speedMax: 10
   jumpForce: 3
-  inertie: 0
+  inertie: 0.99
 --- !u!114 &282660039
 MonoBehaviour:
   m_ObjectHideFlags: 0
