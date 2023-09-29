@@ -4,6 +4,24 @@ using UnityEngine;
 
 public static class PhysicSystem
 {
+
+    public static void SetPosition(PhysicObject po, Vector2 position)
+    {
+        po.transform.position = position;
+    }
+
+    public static void SetPositionX(PhysicObject po, float positionX)
+    {
+        Vector2 temp = new Vector2(positionX, po.transform.position.y);
+        po.transform.position = temp;
+    }
+
+    public static void SetPositionY(PhysicObject po, float positionY)
+    {
+        Vector2 temp = new Vector2(po.transform.position.x, positionY);
+        po.transform.position = temp;
+    }
+
     public static void SetSpeed(PhysicObject po, Vector2 speed)
     {
         po.speed = speed;
