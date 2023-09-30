@@ -14,6 +14,8 @@ public class CharacterControllerAriel : MonoBehaviour
     private Vector2 gravityMove, inputMove, jumpMove;
     private bool isGrounded, canJump;
     public float inertie;
+
+    private bool isMoving;
     
     // Start is called before the first frame update
     void Start()
@@ -24,52 +26,55 @@ public class CharacterControllerAriel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Gravity();
+        if (isMoving == false)
+        {
+            PhysicSystem.TargetSpeedX(po, 0, inertie);
+        }
+
     }
 
     private void Gravity()
     {
-        
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 10))
+        if (!isGrounded)
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+            gravityMove = Vector2.down * gravityForce;
         }
-        
-        // if (!isGrounded)
-        // {
-        //     gravityMove = Vector2.down * gravityForce;
-        // }
-        // else
-        // {
-        //     gravityMove = Vector2.zero;
-        // }
+        else
+        {
+            gravityMove = Vector2.zero;
+        }
     }
 
     //Method appelée en Event par l'InputSystem 
     public void Jump(InputAction.CallbackContext context)
     {
-        
+        // if (context.phase == InputActionPhase.Started & canJump)
+        //     jumpMove.y = context.ReadValue<float>() * jumpForce;
+        //
+        // if (context.phase == InputActionPhase.Canceled)
+        // {
+        //     jumpMove.y = 0;
+        // }
     }
     
     
     //Method appelée en Event par l'InputSystem 
     public void Move(InputAction.CallbackContext context)
     {
-        Debug.Log(1);
         if (context.phase == InputActionPhase.Started)
         {
-            
+            isMoving = true;
         }
         if (context.phase == InputActionPhase.Performed)
         {
-            PhysicSystem.TargetSpeed(po, speedMax*context.ReadValue<Vector2>(), inertie);
+            PhysicSystem.TargetSpeedX(po, speedMax*context.ReadValue<Vector2>().x, inertie);
         }
         if (context.phase == InputActionPhase.Canceled)
         {
-            po.speed = Vector2.zero;
+            isMoving = false;
         }
+
+        inputMove *= speedMax;
 
     }
 
