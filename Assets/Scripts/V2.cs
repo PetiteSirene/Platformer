@@ -3,26 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.InputSystem.HID;
 
-public class CharacterControllerAriel : MonoBehaviour
+public class V2 : MonoBehaviour
 {
-    public PhysicObject po;
-    public float jumpForce;
-    private Vector2 speed, jump;
+    public float gravityForce, jumpForce;
+    private Vector2 speed, gravity, jump;
     private bool isGrounded, canJump;
-
-    private void Start()
-    {
-        po = GetComponent<PhysicObject>();
-    }
-
+    
     private void Update()
     {
-        
-        //transform.Translate((speed + gravity + jump) * Time.deltaTime);
-        PhysicSystem.AddSpeed(po,(speed + jump));
+        Gravity();
+        transform.Translate((speed + gravity + jump) * Time.deltaTime);
     }
 
     //Method appelée en Event par l'InputSystem 
@@ -43,7 +34,10 @@ public class CharacterControllerAriel : MonoBehaviour
     }
     
     
-    
+    private void Gravity()
+    {
+        gravity = Vector2.down * gravityForce;
+    }
 
     public float speedMax;
     
@@ -63,4 +57,6 @@ public class CharacterControllerAriel : MonoBehaviour
             speed.x = 0;
         }
     }
+    
+    
 }
