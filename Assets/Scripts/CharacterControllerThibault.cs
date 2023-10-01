@@ -42,9 +42,9 @@ public class CharacterControllerThibault : MonoBehaviour
     //Method appelée en Event par l'InputSystem 
     public void Jump(InputAction.CallbackContext context)
     {
-        // if (context.phase == InputActionPhase.Started & canJump)
-        //     jumpMove.y = context.ReadValue<float>() * jumpForce;
-        //
+        if (context.phase == InputActionPhase.Started & canJump)
+            jumpMove.y = context.ReadValue<float>() * jumpForce;
+        
         // if (context.phase == InputActionPhase.Canceled)
         // {
         //     jumpMove.y = 0;
