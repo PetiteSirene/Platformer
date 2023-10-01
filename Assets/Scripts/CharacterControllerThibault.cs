@@ -27,25 +27,18 @@ public class CharacterControllerThibault : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isMoving == false)
+        
+        if (isMoving)
+        {
+            PhysicSystem.TargetSpeedX(po, inputMove.x * speedMax, inertie);
+        }
+        else
         {
             PhysicSystem.TargetSpeedX(po, 0, inertie);
         }
 
     }
-
-    private void Gravity()
-    {
-        if (!isGrounded)
-        {
-            gravityMove = Vector2.down * gravityForce;
-        }
-        else
-        {
-            gravityMove = Vector2.zero;
-        }
-    }
-
+    
     //Method appelée en Event par l'InputSystem 
     public void Jump(InputAction.CallbackContext context)
     {
@@ -62,22 +55,19 @@ public class CharacterControllerThibault : MonoBehaviour
     //Method appelée en Event par l'InputSystem 
     public void Move(InputAction.CallbackContext context)
     {
+        inputMove = context.ReadValue<Vector2>();
         if (context.phase == InputActionPhase.Started)
         {
             isMoving = true;
         }
         if (context.phase == InputActionPhase.Performed)
         {
-            PhysicSystem.SetSpeedX(po, speedMax*context.ReadValue<Vector2>().x);
+            
         }
         if (context.phase == InputActionPhase.Canceled)
         {
-            PhysicSystem.SetSpeedX(po, 0);
             isMoving = false;
         }
-
-        inputMove *= speedMax;
-
     }
 
     private void OnCollisionEnter2D(Collision2D other)
