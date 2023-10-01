@@ -407,7 +407,7 @@ MonoBehaviour:
   - {fileID: 1745879979}
   - {fileID: 1270737214}
   - {fileID: 1679089568}
-  gravityScale: 0.5
+  gravityScale: 0.1
   speed: {x: 0, y: 0}
 --- !u!1 &324459681
 GameObject:
