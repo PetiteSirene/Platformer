@@ -67,10 +67,11 @@ public class CharacterControllerThibault : MonoBehaviour
         }
         if (context.phase == InputActionPhase.Performed)
         {
-            PhysicSystem.TargetSpeedX(po, speedMax*context.ReadValue<Vector2>().x, inertie);
+            PhysicSystem.SetSpeedX(po, speedMax*context.ReadValue<Vector2>().x);
         }
         if (context.phase == InputActionPhase.Canceled)
         {
+            PhysicSystem.SetSpeedX(po, 0);
             isMoving = false;
         }
 

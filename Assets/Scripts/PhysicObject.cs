@@ -15,7 +15,7 @@ public class PhysicObject : MonoBehaviour
 
     void Update()
     {
-        speed += Vector2.down * gravityScale;
+        speed += Vector2.down * gravityScale * Time.deltaTime;
         foreach (Raycaster raycaster in raycasters)
         {
             if (speed != Vector2.zero)
