@@ -21,7 +21,7 @@ public class CharacterControllerThibault : MonoBehaviour
     void Start()
     {
         po = GetComponent<PhysicObject>();
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 500;
     }
 
     // Update is called once per frame

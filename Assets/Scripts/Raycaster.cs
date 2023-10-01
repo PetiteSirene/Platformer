@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Raycaster : MonoBehaviour
 {
@@ -21,11 +22,11 @@ public class Raycaster : MonoBehaviour
         {
             if (vect.x != 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.x * Vector2.right , vect.x, layerMask);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.x * Vector2.right , Math.Abs(vect.x), layerMask);
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedX(po, 0f);
-                    float x = transform.position.x - offset.x + hit.distance;
+                    float x = transform.position.x - offset.x - hit.distance;
                     PhysicSystem.SetPositionX(po, x);
                 }
             } 
@@ -34,11 +35,11 @@ public class Raycaster : MonoBehaviour
         {
             if (vect.y != 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , vect.y, layerMask);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , Math.Abs(vect.y), layerMask);
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedY(po, 0f);
-                    float y = transform.position.y - offset.y + hit.distance;
+                    float y = transform.position.y - offset.y - hit.distance;
                     PhysicSystem.SetPositionY(po, y);
                 }
             }
