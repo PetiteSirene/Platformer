@@ -9,11 +9,10 @@ using UnityEngine.InputSystem.HID;
 public class CharacterControllerThibault : MonoBehaviour
 {
     public PhysicObject po;
-    public float gravityForce, speedMax, jumpForce;
+    public float speedMax, jumpForce;
     
-    private Vector2 gravityMove, inputMove, jumpMove;
-    private bool isGrounded, canJump;
-    public float inertie;
+    private Vector2 inputMove;
+    public float inertieOnGround, inertieOnAir;
 
     private bool isMoving;
     
@@ -21,7 +20,7 @@ public class CharacterControllerThibault : MonoBehaviour
     void Start()
     {
         po = GetComponent<PhysicObject>();
-        Application.targetFrameRate = 500;
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
@@ -30,11 +29,26 @@ public class CharacterControllerThibault : MonoBehaviour
         
         if (isMoving)
         {
-            PhysicSystem.TargetSpeedX(po, inputMove.x * speedMax, inertie);
+            if (po.isGrounded)
+            {
+                PhysicSystem.TargetSpeedX(po, inputMove.x * speedMax, inertieOnGround);
+            }
+            else
+            {
+                PhysicSystem.TargetSpeedX(po, inputMove.x * speedMax, inertieOnAir);
+            }
+
         }
         else
         {
-            PhysicSystem.TargetSpeedX(po, 0, inertie);
+            if (po.isGrounded)
+            {
+                PhysicSystem.TargetSpeedX(po, 0, inertieOnGround);
+            }
+            else
+            {
+                PhysicSystem.TargetSpeedX(po, 0, inertieOnAir);
+            }
         }
 
     }
@@ -42,13 +56,18 @@ public class CharacterControllerThibault : MonoBehaviour
     //Method appelée en Event par l'InputSystem 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started & canJump)
-            jumpMove.y = context.ReadValue<float>() * jumpForce;
         
-        // if (context.phase == InputActionPhase.Canceled)
-        // {
-        //     jumpMove.y = 0;
-        // }
+        if (context.phase == InputActionPhase.Started )
+        {
+            if (po.isGrounded)
+            {
+                PhysicSystem.SetSpeedY(po, jumpForce);
+                po.isGrounded = false;
+            }
+            
+
+        }
+        
     }
     
     
@@ -70,18 +89,5 @@ public class CharacterControllerThibault : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        canJump = true;
-    }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        isGrounded = false;
-        canJump = false;
-    }
     
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        isGrounded = true;
-    }
 }

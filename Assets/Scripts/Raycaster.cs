@@ -51,6 +51,7 @@ public class Raycaster : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , Math.Abs(vect.y), layerMask);
                 if (hit.collider != null)
                 {
+                    po.isGrounded = true;
                     PhysicSystem.SetSpeedY(po, 0f);
                     float y = transform.position.y - offset.y - hit.distance;
                     PhysicSystem.SetPositionY(po, y);

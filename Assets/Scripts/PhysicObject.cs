@@ -7,6 +7,7 @@ public class PhysicObject : MonoBehaviour
     public List<Raycaster> raycasters;
     public float gravityScale;
     public Vector2 speed;
+    public bool isGrounded;
 
     void Start()
     {
@@ -22,7 +23,8 @@ public class PhysicObject : MonoBehaviour
             {
                 raycaster.Raycast(speed * Time.deltaTime);
             }
-        }       
+        }
+
     }
     void LateUpdate()
     {
