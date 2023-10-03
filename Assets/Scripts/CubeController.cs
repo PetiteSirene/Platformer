@@ -9,13 +9,19 @@ using UnityEngine.InputSystem.HID;
 public class CubeController : MonoBehaviour
 {
     public PhysicObject po;
+    
     public float xMoveSpeed, wallslideSpeed;
 
-    public float baseJumpForce, doubleJumpForce, wallJumpXForce, wallJumpYForce;
-    
-    private Vector2 inputMove;
+    public float baseJumpForce, doubleJumpXForce, doubleJumpYForce, wallJumpXForce, wallJumpYForce;
+
+     
     public float inertieOnGround, inertieInAir, inertieWallslide;
 
+    
+    private Vector2 inputMove;
+    private bool canDoubleJump = true;
+
+   
     public float gravityScale;
 
     private bool isMoving;
@@ -38,6 +44,7 @@ public class CubeController : MonoBehaviour
             if (isOnGround)
             {
                 PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieOnGround);
+                canDoubleJump = true;
             }
             else
             {
@@ -50,6 +57,7 @@ public class CubeController : MonoBehaviour
             if (isOnGround)
             {
                 PhysicSystem.TargetSpeedX(po, 0, inertieOnGround);
+                canDoubleJump = true;
             }
             else
             {
@@ -88,8 +96,15 @@ public class CubeController : MonoBehaviour
                 PhysicSystem.SetSpeedX(po, -wallJumpXForce);
                 PhysicSystem.SetSpeedY(po, wallJumpYForce);
             }
-            
-
+            else if (canDoubleJump)
+            {
+                canDoubleJump = false;
+                if (isMoving)
+                {
+                    PhysicSystem.SetSpeedX(po, doubleJumpXForce * inputMove.x);
+                }
+                PhysicSystem.SetSpeedY(po, doubleJumpYForce);
+            }
         }
         
     }

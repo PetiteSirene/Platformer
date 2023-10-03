@@ -514,7 +514,8 @@ MonoBehaviour:
   xMoveSpeed: 10
   wallslideSpeed: 3
   baseJumpForce: 12
-  doubleJumpForce: 10
+  doubleJumpXForce: 5
+  doubleJumpYForce: 10
   wallJumpXForce: 10
   wallJumpYForce: 10
   inertieOnGround: 0.5
