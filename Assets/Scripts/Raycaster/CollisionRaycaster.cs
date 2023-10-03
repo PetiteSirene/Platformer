@@ -71,20 +71,13 @@ public class CollisionRaycaster : Raycaster
                         case GroundType.Bumper: 
                             po.groundType = GroundType.Bumper;
                             Debug.Log("boing");
-                            PhysicSystem.SetSpeedY(po, Mathf.Min(- vect.y/ Time.deltaTime, ground.info.x));
+                            PhysicSystem.SetSpeedY(po, Mathf.Min(- 0.95f * vect.y/ Time.deltaTime, ground.info.x));
                             y = transform.position.y - offset.y - hit.distance;
                             PhysicSystem.SetPositionY(po, y);
                             break;
 
                         case GroundType.Moving: 
                             po.groundType = GroundType.Moving;
-                            PhysicSystem.SetSpeedY(po, 0f);
-                            y = transform.position.y - offset.y - hit.distance;
-                            PhysicSystem.SetPositionY(po, y);
-                            break;
-
-                        case GroundType.Lava: 
-                            po.groundType = GroundType.Lava;
                             PhysicSystem.SetSpeedY(po, 0f);
                             y = transform.position.y - offset.y - hit.distance;
                             PhysicSystem.SetPositionY(po, y);

@@ -14,5 +14,4 @@ public enum GroundType
         Ice,
         Bumper,
         Moving,
-        Lava,
     }
