@@ -56,6 +56,7 @@ public class CollisionRaycaster : Raycaster
                     {
                         case GroundType.BaseGround: 
                             po.groundType = GroundType.BaseGround;
+                            po.groundInfo = ground.info;
                             PhysicSystem.SetSpeedY(po, 0f);
                             y = transform.position.y - offset.y - hit.distance;
                             PhysicSystem.SetPositionY(po, y);
@@ -63,6 +64,7 @@ public class CollisionRaycaster : Raycaster
 
                         case GroundType.Ice: 
                             po.groundType = GroundType.Ice;
+                            po.groundInfo = ground.info;
                             PhysicSystem.SetSpeedY(po, 0f);
                             y = transform.position.y - offset.y - hit.distance;
                             PhysicSystem.SetPositionY(po, y);
@@ -70,7 +72,7 @@ public class CollisionRaycaster : Raycaster
 
                         case GroundType.Bumper: 
                             po.groundType = GroundType.Bumper;
-                            Debug.Log("boing");
+                            po.groundInfo = ground.info;
                             PhysicSystem.SetSpeedY(po, Mathf.Min(- 0.95f * vect.y/ Time.deltaTime, ground.info.x));
                             y = transform.position.y - offset.y - hit.distance;
                             PhysicSystem.SetPositionY(po, y);
@@ -78,6 +80,7 @@ public class CollisionRaycaster : Raycaster
 
                         case GroundType.Moving: 
                             po.groundType = GroundType.Moving;
+                            po.groundInfo = ground.info;
                             PhysicSystem.SetSpeedY(po, 0f);
                             y = transform.position.y - offset.y - hit.distance;
                             PhysicSystem.SetPositionY(po, y);

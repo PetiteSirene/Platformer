@@ -15,7 +15,7 @@ public class CubeController : MonoBehaviour
     public float baseJumpForce, doubleJumpXForce, doubleJumpYForce, wallJumpXForce, wallJumpYForce;
 
      
-    public float inertieOnGround, inertieInAir, inertieWallslide, inertieDash;
+    public float inertieStartOnGround, inertieEndOnGround, inertieOnIce, inertieInAir, inertieWallslide, inertieDash;
 
     
     private Vector2 inputMove;
@@ -46,7 +46,22 @@ public class CubeController : MonoBehaviour
         {
             if (isOnGround)
             {
-                PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieOnGround);
+                switch(po.groundType)
+                    {
+                        case GroundType.Ice: 
+                            PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieOnIce);
+                            break;
+
+                        case GroundType.Moving: 
+                            Vector2 newVect = inputMove.x * xMoveSpeed * Vector2.right + po.groundInfo;
+                            PhysicSystem.TargetSpeed(po, newVect, inertieStartOnGround);
+                            break;
+
+                        default:
+                            PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieStartOnGround);
+                            break;
+
+                    }
                 canDoubleJump = true;
                 canDash = true;
             }
@@ -60,7 +75,21 @@ public class CubeController : MonoBehaviour
         {
             if (isOnGround)
             {
-                PhysicSystem.TargetSpeedX(po, 0, inertieOnGround);
+                switch(po.groundType)
+                    {
+                        case GroundType.Ice: 
+                            PhysicSystem.TargetSpeedX(po, 0, inertieOnIce);
+                            break;
+
+                        case GroundType.Moving: 
+                            PhysicSystem.TargetSpeed(po, po.groundInfo, inertieStartOnGround);
+                            break;
+
+                        default:
+                            PhysicSystem.TargetSpeedX(po, 0, inertieEndOnGround);
+                            break;
+
+                    }
                 canDoubleJump = true;
                 canDash = true;
             }

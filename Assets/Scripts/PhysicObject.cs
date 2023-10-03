@@ -14,6 +14,7 @@ public class PhysicObject : MonoBehaviour
     public bool isOnLeftWall;
     public bool isOnRightWall;
     public GroundType groundType;
+    public Vector2 groundInfo;
 
     void Start()
     {
