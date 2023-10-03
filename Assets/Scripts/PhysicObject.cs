@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PhysicObject : MonoBehaviour
 {
-    public List<Raycaster> raycasters;
+    public List<CollisionRaycaster> cRaycasters;
+    public List<StateRaycaster> sRaycasters;
     public float gravityScale;
     public Vector2 speed;
-    public bool isGrounded;
+
+    public Vector2 detectionVector;
+
+    public bool isOnGround;
+    public bool isOnLeftWall;
+    public bool isOnRightWall;
 
     void Start()
     {
@@ -16,20 +22,41 @@ public class PhysicObject : MonoBehaviour
 
     void Update()
     {
-        speed += Vector2.down * gravityScale * Time.deltaTime;
-        foreach (Raycaster raycaster in raycasters)
+        PhysicSystem.AddSpeedY(this, -gravityScale * Time.deltaTime);
+        DoCRaycasts();
+        DoSRaycasts();
+        Move();
+    }
+
+    void DoCRaycasts()
+    {
+        foreach (Raycaster cRaycaster in cRaycasters)
         {
             if (speed != Vector2.zero)
             {
-                raycaster.Raycast(speed * Time.deltaTime);
+                cRaycaster.Raycast(speed * Time.deltaTime);
             }
+        }
+    }
+
+    void DoSRaycasts()
+    {
+        ResetBools();
+        foreach (Raycaster sRaycaster in sRaycasters)
+        {
+            sRaycaster.Raycast(detectionVector);
         }
 
     }
-    void LateUpdate()
+
+    void ResetBools()
     {
-        Move();
+        isOnGround = false;
+        isOnLeftWall = false;
+        isOnRightWall = false;
     }
+
+
 
     void Move()
     {

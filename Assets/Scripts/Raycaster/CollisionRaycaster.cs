@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Raycaster : MonoBehaviour
+public class CollisionRaycaster : Raycaster
 {
-    public Vector2 offset;
-    public PhysicObject po;
-    public RaycastType raycastType;
+    private Vector2 offset;
 
     void Awake()
     {
         offset = transform.localPosition;
     }
 
-    public void Raycast(Vector2 vect)
+    
+    public override void Raycast(Vector2 vect)
     {
-
-        int layerMask = 1 << 7;
+        int layerMask = 1 << 7; //level is currently on 7
         if (raycastType == RaycastType.X_left)
         {
             if (vect.x < 0)
@@ -51,7 +49,7 @@ public class Raycaster : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , Math.Abs(vect.y), layerMask);
                 if (hit.collider != null)
                 {
-                    po.isGrounded = true;
+                    po.isOnGround = true;
                     PhysicSystem.SetSpeedY(po, 0f);
                     float y = transform.position.y - offset.y - hit.distance;
                     PhysicSystem.SetPositionY(po, y);
@@ -70,17 +68,8 @@ public class Raycaster : MonoBehaviour
                     PhysicSystem.SetPositionY(po, y);
                 }
             }
-        }
-        
+        }     
     }
+
+
 }
-
-
-
-public enum RaycastType
-    {
-        X_left,
-        X_right,
-        Y_down,
-        Y_up,
-    }
