@@ -64,9 +64,19 @@ public class CubeController : MonoBehaviour
                 PhysicSystem.TargetSpeedX(po, 0, inertieInAir);
             }
         }
-        if (po.speed.y < -wallslideSpeed && (po.isOnLeftWall || po.isOnRightWall))
+        if (po.isOnLeftWall || po.isOnRightWall)
         {
-            PhysicSystem.TargetSpeedY(po, -wallslideSpeed, inertieWallslide);
+            canDoubleJump = true;
+            if (po.speed.y < -wallslideSpeed)
+            {
+                PhysicSystem.TargetSpeedY(po, -wallslideSpeed, inertieWallslide);
+            }
+            else
+            {
+                PhysicSystem.AddSpeedY(po, -gravityScale * Time.deltaTime);
+            }
+            
+            
         }
         else
         {
