@@ -513,15 +513,15 @@ MonoBehaviour:
   po: {fileID: 0}
   xMoveSpeed: 10
   wallslideSpeed: 3
-  baseJumpForce: 12
-  doubleJumpXForce: 5
-  doubleJumpYForce: 10
-  wallJumpXForce: 10
-  wallJumpYForce: 10
+  baseJumpForce: 15
+  doubleJumpXForce: 10
+  doubleJumpYForce: 13
+  wallJumpXForce: 5
+  wallJumpYForce: 12
   inertieOnGround: 0.5
   inertieInAir: 0.96
   inertieWallslide: 0.96
-  gravityScale: 20
+  gravityScale: 30
 --- !u!114 &282660039
 MonoBehaviour:
   m_ObjectHideFlags: 0
