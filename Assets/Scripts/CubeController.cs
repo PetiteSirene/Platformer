@@ -52,9 +52,16 @@ public class CubeController : MonoBehaviour
                             PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieOnIce);
                             break;
 
-                        case GroundType.Moving: 
+                        case GroundType.Moving:
                             Vector2 newVect = inputMove.x * xMoveSpeed * Vector2.right + po.groundInfo;
-                            PhysicSystem.TargetSpeed(po, newVect, inertieStartOnGround);
+                            if (po.speed.y > po.groundInfo.y)
+                            {
+                                PhysicSystem.SetSpeedX(po, newVect.x);
+                            }
+                            else
+                            {
+                                PhysicSystem.SetSpeed(po, newVect);
+                            }
                             break;
 
                         default:
@@ -81,8 +88,16 @@ public class CubeController : MonoBehaviour
                             PhysicSystem.TargetSpeedX(po, 0, inertieOnIce);
                             break;
 
-                        case GroundType.Moving: 
-                            PhysicSystem.TargetSpeed(po, po.groundInfo, inertieStartOnGround);
+                        case GroundType.Moving:
+                            if (po.speed.y > po.groundInfo.y)
+                            {
+                                PhysicSystem.SetSpeedX(po, po.groundInfo.x);
+                            }
+                            else
+                            {
+                                PhysicSystem.SetSpeed(po, po.groundInfo);  
+                            }
+                            
                             break;
 
                         default:
