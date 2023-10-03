@@ -511,13 +511,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   po: {fileID: 0}
-  speedMax: 10
+  xMoveSpeed: 10
+  wallslideSpeed: 3
   baseJumpForce: 12
   doubleJumpForce: 10
   wallJumpXForce: 10
   wallJumpYForce: 10
   inertieOnGround: 0.5
-  inertieOnAir: 0.96
+  inertieInAir: 0.96
+  inertieWallslide: 0.96
+  gravityScale: 20
 --- !u!114 &282660039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,8 +549,7 @@ MonoBehaviour:
   - {fileID: 1745879982}
   - {fileID: 1270737217}
   - {fileID: 1679089571}
-  gravityScale: 20
-  speed: {x: 0, y: -10}
+  speed: {x: 0, y: 0}
   detectionVector: {x: 0.1, y: 0.1}
   isOnGround: 0
   isOnLeftWall: 0

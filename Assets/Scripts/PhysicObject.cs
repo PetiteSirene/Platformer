@@ -6,7 +6,6 @@ public class PhysicObject : MonoBehaviour
 {
     public List<CollisionRaycaster> cRaycasters;
     public List<StateRaycaster> sRaycasters;
-    public float gravityScale;
     public Vector2 speed;
 
     public Vector2 detectionVector;
@@ -22,7 +21,6 @@ public class PhysicObject : MonoBehaviour
 
     void Update()
     {
-        PhysicSystem.AddSpeedY(this, -gravityScale * Time.deltaTime);
         DoCRaycasts();
         DoSRaycasts();
         Move();

@@ -9,12 +9,14 @@ using UnityEngine.InputSystem.HID;
 public class CubeController : MonoBehaviour
 {
     public PhysicObject po;
-    public float speedMax;
+    public float xMoveSpeed, wallslideSpeed;
 
     public float baseJumpForce, doubleJumpForce, wallJumpXForce, wallJumpYForce;
     
     private Vector2 inputMove;
-    public float inertieOnGround, inertieOnAir;
+    public float inertieOnGround, inertieInAir, inertieWallslide;
+
+    public float gravityScale;
 
     private bool isMoving;
     
@@ -28,30 +30,41 @@ public class CubeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isOnGround = po.isOnGround;
+
         
         if (isMoving)
         {
-            if (po.isOnGround)
+            if (isOnGround)
             {
-                PhysicSystem.TargetSpeedX(po, inputMove.x * speedMax, inertieOnGround);
+                PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieOnGround);
             }
             else
             {
-                PhysicSystem.TargetSpeedX(po, inputMove.x * speedMax, inertieOnAir);
+                PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieInAir);
             }
 
         }
         else
         {
-            if (po.isOnGround)
+            if (isOnGround)
             {
                 PhysicSystem.TargetSpeedX(po, 0, inertieOnGround);
             }
             else
             {
-                PhysicSystem.TargetSpeedX(po, 0, inertieOnAir);
+                PhysicSystem.TargetSpeedX(po, 0, inertieInAir);
             }
         }
+        if (po.speed.y < -wallslideSpeed && (po.isOnLeftWall || po.isOnRightWall))
+        {
+            PhysicSystem.TargetSpeedY(po, -wallslideSpeed, inertieWallslide);
+        }
+        else
+        {
+            PhysicSystem.AddSpeedY(po, -gravityScale * Time.deltaTime);
+        }
+        
 
     }
     
