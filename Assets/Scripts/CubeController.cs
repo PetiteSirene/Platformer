@@ -213,7 +213,7 @@ public class CubeController : MonoBehaviour
         canDash = false;
         PhysicSystem.SetSpeedY(po,  0);
         yield return new WaitForSeconds(timeDashing);
-        PhysicSystem.SetSpeed(po, new Vector2(inputMove.x * dashSpeed / 5, 0));
+        PhysicSystem.SetSpeed(po, new Vector2(inputMove.x * dashSpeed * (1-inertieDash), 0));
         isDashing = false;
     }
 

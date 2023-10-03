@@ -694,10 +694,12 @@ MonoBehaviour:
   doubleJumpYForce: 13
   wallJumpXForce: 5
   wallJumpYForce: 12
-  inertieOnGround: 0.5
+  inertieStartOnGround: 0.8
+  inertieEndOnGround: 0.5
+  inertieOnIce: 0.99
   inertieInAir: 0.96
   inertieWallslide: 0.96
-  inertieDash: 0
+  inertieDash: 0.7
   gravityScale: 30
   timeDashing: 0.05
 --- !u!114 &282660039
@@ -734,6 +736,7 @@ MonoBehaviour:
   isOnLeftWall: 0
   isOnRightWall: 0
   groundType: 0
+  groundInfo: {x: 0, y: 0}
 --- !u!1 &324459681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,10 +1117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a373aac0205f445b34bf7b728f93ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {x: 0, y: 5}
+  info: {x: 0, y: 0}
   groundType: 3
   position1: {x: -4.95, y: 5.12, z: 0}
   position2: {x: 3.29, y: 5.12, z: 0}
+  speed: 5
 --- !u!1 &446953049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1550,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3eb42545623252144bc830777d922187, type: 2}
+  - {fileID: 2100000, guid: 5975343a021c1d04ca11ddd724a2a7d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1604,7 +1608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   info: {x: 0, y: 0}
-  groundType: 0
+  groundType: 1
 --- !u!1 &1169361790
 GameObject:
   m_ObjectHideFlags: 0
