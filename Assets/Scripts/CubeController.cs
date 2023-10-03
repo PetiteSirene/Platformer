@@ -9,7 +9,9 @@ using UnityEngine.InputSystem.HID;
 public class CubeController : MonoBehaviour
 {
     public PhysicObject po;
-    public float speedMax, jumpForce;
+    public float speedMax;
+
+    public float baseJumpForce, doubleJumpForce, wallJumpXForce, wallJumpYForce;
     
     private Vector2 inputMove;
     public float inertieOnGround, inertieOnAir;
@@ -54,15 +56,24 @@ public class CubeController : MonoBehaviour
     }
     
     //Method appelée en Event par l'InputSystem 
-    public void Jump(InputAction.CallbackContext context)
+    public void TryJump(InputAction.CallbackContext context)
     {
         
         if (context.phase == InputActionPhase.Started )
         {
             if (po.isOnGround)
             {
-                PhysicSystem.SetSpeedY(po, jumpForce);
-                po.isOnGround = false;
+                PhysicSystem.SetSpeedY(po, baseJumpForce);
+            }
+            else if(po.isOnLeftWall)
+            {
+                PhysicSystem.SetSpeedX(po, wallJumpXForce);
+                PhysicSystem.SetSpeedY(po, wallJumpYForce);
+            }
+            else if(po.isOnRightWall)
+            {
+                PhysicSystem.SetSpeedX(po, -wallJumpXForce);
+                PhysicSystem.SetSpeedY(po, wallJumpYForce);
             }
             
 
