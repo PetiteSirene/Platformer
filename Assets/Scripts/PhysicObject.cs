@@ -13,6 +13,7 @@ public class PhysicObject : MonoBehaviour
     public bool isOnGround;
     public bool isOnLeftWall;
     public bool isOnRightWall;
+    public GroundType groundType;
 
     void Start()
     {

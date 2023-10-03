@@ -20,7 +20,7 @@ public class CollisionRaycaster : Raycaster
         {
             if (vect.x < 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.x * Vector2.right , Math.Abs(vect.x), layerMask);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.x * Vector2.right , -vect.x, layerMask);
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedX(po, 0f);
@@ -33,7 +33,7 @@ public class CollisionRaycaster : Raycaster
         {
             if (vect.x > 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.x * Vector2.right , Math.Abs(vect.x), layerMask);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.x * Vector2.right ,vect.x, layerMask);
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedX(po, 0f);
@@ -46,13 +46,57 @@ public class CollisionRaycaster : Raycaster
         {
             if (vect.y < 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , Math.Abs(vect.y), layerMask);
-                if (hit.collider != null)
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , -vect.y, layerMask);
+                Collider2D collider = hit.collider;
+                if (collider != null)
                 {
-                    po.isOnGround = true;
-                    PhysicSystem.SetSpeedY(po, 0f);
-                    float y = transform.position.y - offset.y - hit.distance;
-                    PhysicSystem.SetPositionY(po, y);
+                    float y;
+                    Ground ground = collider.gameObject.GetComponent<Ground>();
+                    switch(ground.groundType)
+                    {
+                        case GroundType.BaseGround: 
+                            po.groundType = GroundType.BaseGround;
+                            PhysicSystem.SetSpeedY(po, 0f);
+                            y = transform.position.y - offset.y - hit.distance;
+                            PhysicSystem.SetPositionY(po, y);
+                            break;
+
+                        case GroundType.Ice: 
+                            po.groundType = GroundType.Ice;
+                            PhysicSystem.SetSpeedY(po, 0f);
+                            y = transform.position.y - offset.y - hit.distance;
+                            PhysicSystem.SetPositionY(po, y);
+                            break;
+
+                        case GroundType.Bumper: 
+                            po.groundType = GroundType.Bumper;
+                            Debug.Log("boing");
+                            PhysicSystem.SetSpeedY(po, Mathf.Min(- vect.y/ Time.deltaTime, ground.info.x));
+                            y = transform.position.y - offset.y - hit.distance;
+                            PhysicSystem.SetPositionY(po, y);
+                            break;
+
+                        case GroundType.Moving: 
+                            po.groundType = GroundType.Moving;
+                            PhysicSystem.SetSpeedY(po, 0f);
+                            y = transform.position.y - offset.y - hit.distance;
+                            PhysicSystem.SetPositionY(po, y);
+                            break;
+
+                        case GroundType.Lava: 
+                            po.groundType = GroundType.Lava;
+                            PhysicSystem.SetSpeedY(po, 0f);
+                            y = transform.position.y - offset.y - hit.distance;
+                            PhysicSystem.SetPositionY(po, y);
+                            break;
+
+                        default:
+                            PhysicSystem.SetSpeedY(po, 0f);
+                            y = transform.position.y - offset.y - hit.distance;
+                            PhysicSystem.SetPositionY(po, y);
+                            break;
+
+                    }
                 }
             }
         }
@@ -60,7 +104,7 @@ public class CollisionRaycaster : Raycaster
         {
             if (vect.y > 0)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , Math.Abs(vect.y), layerMask);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, vect.y * Vector2.up , vect.y, layerMask);
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedY(po, 0f);
