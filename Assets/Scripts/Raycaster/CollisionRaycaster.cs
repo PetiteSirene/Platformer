@@ -37,7 +37,7 @@ public class CollisionRaycaster : Raycaster
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedX(po, 0f);
-                    float x = transform.position.x - offset.x - hit.distance;
+                    float x = transform.position.x - offset.x + hit.distance;
                     PhysicSystem.SetPositionX(po, x);
                 }
             } 
@@ -64,7 +64,7 @@ public class CollisionRaycaster : Raycaster
                 if (hit.collider != null)
                 {
                     PhysicSystem.SetSpeedY(po, 0f);
-                    float y = transform.position.y - offset.y - hit.distance;
+                    float y = transform.position.y - offset.y + hit.distance;
                     PhysicSystem.SetPositionY(po, y);
                 }
             }
