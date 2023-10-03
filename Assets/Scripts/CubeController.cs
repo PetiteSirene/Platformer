@@ -10,21 +10,24 @@ public class CubeController : MonoBehaviour
 {
     public PhysicObject po;
     
-    public float xMoveSpeed, wallslideSpeed;
+    public float xMoveSpeed, wallslideSpeed, dashSpeed;
 
     public float baseJumpForce, doubleJumpXForce, doubleJumpYForce, wallJumpXForce, wallJumpYForce;
 
      
-    public float inertieOnGround, inertieInAir, inertieWallslide;
+    public float inertieOnGround, inertieInAir, inertieWallslide, inertieDash;
 
     
     private Vector2 inputMove;
-    private bool canDoubleJump = true;
+    private bool canDoubleJump = true, canDash = true;
 
    
     public float gravityScale;
 
     private bool isMoving;
+    
+    private bool isDashing;
+    public float timeDashing;
     
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,7 @@ public class CubeController : MonoBehaviour
             {
                 PhysicSystem.TargetSpeedX(po, inputMove.x * xMoveSpeed, inertieOnGround);
                 canDoubleJump = true;
+                canDash = true;
             }
             else
             {
@@ -58,15 +62,18 @@ public class CubeController : MonoBehaviour
             {
                 PhysicSystem.TargetSpeedX(po, 0, inertieOnGround);
                 canDoubleJump = true;
+                canDash = true;
             }
             else
             {
                 PhysicSystem.TargetSpeedX(po, 0, inertieInAir);
             }
         }
+        
         if (po.isOnLeftWall || po.isOnRightWall)
         {
             canDoubleJump = true;
+            canDash = true;
             if (po.speed.y < -wallslideSpeed)
             {
                 PhysicSystem.TargetSpeedY(po, -wallslideSpeed, inertieWallslide);
@@ -81,6 +88,11 @@ public class CubeController : MonoBehaviour
         else
         {
             PhysicSystem.AddSpeedY(po, -gravityScale * Time.deltaTime);
+        }
+
+        if (isDashing)
+        {
+            PhysicSystem.TargetSpeedX(po, inputMove.x * dashSpeed, inertieDash);
         }
         
 
@@ -124,6 +136,7 @@ public class CubeController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         inputMove = context.ReadValue<Vector2>();
+        
         if (context.phase == InputActionPhase.Started)
         {
             isMoving = true;
@@ -138,5 +151,27 @@ public class CubeController : MonoBehaviour
         }
     }
 
-    
+    public void TryDash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (canDash)
+            {
+                StartCoroutine(TimerDash());
+            }
+            
+        }
+    }
+
+    private IEnumerator TimerDash()
+    {
+        isDashing = true;
+        canDash = false;
+        PhysicSystem.SetSpeedY(po,  0);
+        yield return new WaitForSeconds(timeDashing);
+        PhysicSystem.SetSpeed(po, new Vector2(inputMove.x * dashSpeed / 5, 0));
+        isDashing = false;
+    }
+
+
 }
