@@ -28,7 +28,9 @@ public class MovingPlatform : Ground
             forwardOrBackward = !forwardOrBackward;
             info = -info;
         }
-        
+        //activer les raycast (vect = info * Time.deltaTime)
+        //faire en sorte que seuls les bon raycast soit activés (if sur les raycastType en fonction des valeurs positives ou négative de vect.x et vect.y)
+
         if (forwardOrBackward)
         {
             transform.position = Vector3.MoveTowards(transform.position, position1, speed * Time.deltaTime);
@@ -37,6 +39,9 @@ public class MovingPlatform : Ground
         {
             transform.position = Vector3.MoveTowards(transform.position, position2, speed * Time.deltaTime);
         }
+
+
+        
             
         
         
