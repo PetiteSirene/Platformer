@@ -20,11 +20,44 @@ public class PlatformRaycaster : Raycaster
         if (hit.collider != null)
             {
                 PhysicObject po = hit.collider.gameObject.GetComponent<PhysicObject>();
-                PhysicSystem.SetSpeed(po, vect/Time.deltaTime);
-                //deplacer le joueur au bon endroit 
+                if (raycastType == RaycastType.X_left)
+                {
+                    if (vect.x < 0)
+                    {                      
+                        PhysicSystem.SetSpeedX(po, vect.x/Time.deltaTime);
+                        float newX = transform.position.x - po.size + vect.x * Time.deltaTime;
+                        PhysicSystem.SetPositionX(po, newX);
+                    }
+                }
+                else if (raycastType == RaycastType.X_right)
+                {
+                    if (vect.x > 0)
+                    {
+                        PhysicSystem.SetSpeedX(po, vect.x/Time.deltaTime);
+                        float newX = transform.position.x + po.size + vect.x * Time.deltaTime;
+                        PhysicSystem.SetPositionX(po, newX);
+                    }
+                }
+                else if (raycastType == RaycastType.Y_down)
+                {
+                    if (vect.y < 0)
+                    {
+                        PhysicSystem.SetSpeedY(po, vect.y/Time.deltaTime);
+                        float newY = transform.position.y - po.size + vect.x * Time.deltaTime;
+                        PhysicSystem.SetPositionY(po, newY);
+                    }    
+                }
+                else //Y.up
+                {
+                    if (vect.y > 0)
+                    {
+                        PhysicSystem.SetSpeedY(po, vect.y/Time.deltaTime);
+                        float newY = transform.position.y + po.size + vect.x * Time.deltaTime;
+                        PhysicSystem.SetPositionY(po, newY);
+                    }
+                }
                     
             }        
+        }
     }
 
-
-}

@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7328423f6e97a4846a71e206f341ff17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 1
   cRaycasters:
   - {fileID: 1203248632}
   - {fileID: 760634676}
@@ -1022,7 +1023,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 68
   orthographic: 1
   orthographic size: 10
   m_Depth: -1

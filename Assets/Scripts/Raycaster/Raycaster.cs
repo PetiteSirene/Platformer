@@ -5,7 +5,6 @@ using System;
 
 public abstract class Raycaster : MonoBehaviour
 {
-    public PhysicObject po;
     public RaycastType raycastType;
 
 

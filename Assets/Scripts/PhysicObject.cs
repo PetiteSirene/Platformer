@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PhysicObject : MonoBehaviour
 {
+    public float size ;
     public List<CollisionRaycaster> cRaycasters;
     public List<StateRaycaster> sRaycasters;
     public Vector2 speed;
@@ -21,7 +22,7 @@ public class PhysicObject : MonoBehaviour
         
     }
 
-    void Update()
+    void LateUpdate()
     {
         DoCRaycasts();
         DoSRaycasts();

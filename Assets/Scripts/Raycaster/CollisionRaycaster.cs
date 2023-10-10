@@ -6,6 +6,7 @@ using System;
 public class CollisionRaycaster : Raycaster
 {
     private Vector2 offset;
+    public PhysicObject po;
 
     void Awake()
     {

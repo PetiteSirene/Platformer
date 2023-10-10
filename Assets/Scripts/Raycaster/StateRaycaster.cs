@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StateRaycaster : Raycaster
 {
+    public PhysicObject po;
     public override void Raycast(Vector2 vect)
     {
         int layerMask = 1 << 7; //level is currently on 7
