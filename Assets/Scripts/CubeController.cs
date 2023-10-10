@@ -19,14 +19,15 @@ public class CubeController : MonoBehaviour
 
     
     private Vector2 inputMove;
-    private bool canDoubleJump = true, canDash = true;
+    private bool canDoubleJump = true;
+    public bool canDash = true;
 
    
     public float gravityScale;
 
     private bool isMoving;
     
-    private bool isDashing;
+    public bool isDashing;
     public float timeDashing;
     
     // Start is called before the first frame update

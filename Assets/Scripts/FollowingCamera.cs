@@ -19,7 +19,6 @@ public class FollowingCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if ((player.transform.position.x > transform.position.x + triggerDistance)||(player.transform.position.x < transform.position.x - triggerDistance))
         {
             Move();
@@ -33,4 +32,6 @@ public class FollowingCamera : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = new Vector3(smoothedPosition.x, transform.position.y, -10); 
     }
+    
+    
 }
