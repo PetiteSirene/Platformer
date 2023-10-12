@@ -46,10 +46,5 @@ public class MovingPlatform : Ground
         }
 
 
-        
-            
-        
-        
-        
     }
 }
