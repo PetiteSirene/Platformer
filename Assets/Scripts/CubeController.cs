@@ -8,6 +8,13 @@ using UnityEngine.InputSystem.HID;
 
 public class CubeController : MonoBehaviour
 {
+    public ParticleGenerator simpleJumpPG;
+    public ParticleGenerator doubleJumpPG;
+    public ParticleGenerator leftJumpPG;
+    public ParticleGenerator rightJumpPG;
+
+
+
     public PhysicObject po;
     
     public float xMoveSpeed, wallslideSpeed, dashSpeed;
@@ -150,20 +157,24 @@ public class CubeController : MonoBehaviour
         {
             if (po.isOnGround)
             {
+                simpleJumpPG.PlayVFX();
                 PhysicSystem.SetSpeedY(po, baseJumpForce);
             }
             else if(po.isOnLeftWall)
             {
+                leftJumpPG.PlayVFX();
                 PhysicSystem.SetSpeedX(po, wallJumpXForce);
                 PhysicSystem.SetSpeedY(po, wallJumpYForce);
             }
             else if(po.isOnRightWall)
             {
+                rightJumpPG.PlayVFX();
                 PhysicSystem.SetSpeedX(po, -wallJumpXForce);
                 PhysicSystem.SetSpeedY(po, wallJumpYForce);
             }
             else if (canDoubleJump)
             {
+                doubleJumpPG.PlayVFX();
                 canDoubleJump = false;
                 if (isMoving)
                 {
