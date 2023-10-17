@@ -15,8 +15,7 @@ public abstract class Collectible : MonoBehaviour
             isCollectible = false;
             TriggerEffect();
             MakeItemDisappear();
-        }
-        
+        }   
     }
 
     public abstract void TriggerEffect();

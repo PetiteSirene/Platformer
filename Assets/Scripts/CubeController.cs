@@ -12,25 +12,24 @@ public class CubeController : MonoBehaviour
     public ParticleGenerator doubleJumpPG;
     public ParticleGenerator leftJumpPG;
     public ParticleGenerator rightJumpPG;
-    public ParticleGenerator leftElectricityPG;
-    public ParticleGenerator rightElectricityPG;
+    public ParticleGenerator electricityPG;
 
     public PhysicObject po;
     public CameraShake cameraShake;
 
-    public float baseIntensity = 2.0f, intensityDuringDash = 3.0f;
+    public float intensityModifierDuringDash = 1.5f;
     
     public float xMoveSpeed, wallslideSpeed, dashSpeed;
 
     public float baseJumpForce, doubleJumpXForce, doubleJumpYForce, wallJumpXForce, wallJumpYForce;
 
-     
     public float inertieStartOnGround, inertieEndOnGround, inertieOnIce, inertieInAir, inertieWallslide, inertieDash;
 
-    
     private Vector2 inputMove;
     private bool canDoubleJump = true;
     public bool canDash = true;
+
+     private bool paused = false;
 
    
     public float gravityScale;
@@ -41,12 +40,19 @@ public class CubeController : MonoBehaviour
     public float dashDuration;
 
     public GameObject menu;
+
+    private Renderer rend;
+    private Color initialColor;
+    private Color maxColor;
     
     // Start is called before the first frame update
     void Start()
     {
         po = GetComponent<PhysicObject>();
         Application.targetFrameRate = 60;
+        rend = GetComponent<Renderer>();
+        initialColor = rend.material.GetColor("_EmissionColor");
+        maxColor = initialColor * intensityModifierDuringDash;
     }
 
     // Update is called once per frame
@@ -245,31 +251,36 @@ public class CubeController : MonoBehaviour
     {
         isDashing = true;
         canDash = false;
+        Vector2 initialSpeed = po.speed; 
         float dashInput;
-        Vector2 initialSpeed = po.speed;
+        electricityPG.PlayVFX();
         if (toRight)
         {
-            rightElectricityPG.PlayVFX();
+            
             dashInput = 1.0f;
         }
         else
         {
-            leftElectricityPG.PlayVFX();
             dashInput = - 1.0f;
         }
+
         PhysicSystem.SetSpeedY(po,  0);
-        float timeElapsed = 0;
-        while (timeElapsed < dashDuration)
+        float t = 0;
+        float t2;
+        Color lerpedColor;
+        while (t < dashDuration)
         {
-            timeElapsed += Time.deltaTime;
+            t += Time.deltaTime;
+            t2 = -t * (t - dashDuration) * (4.0f/(dashDuration * dashDuration));
+            lerpedColor = Color.Lerp(initialColor, maxColor, t2);
+            rend.material.SetColor("_EmissionColor", lerpedColor);
             PhysicSystem.SetSpeed(po, new Vector2(dashInput * dashSpeed, 0));
             yield return null;
         }
         PhysicSystem.TargetSpeedX(po, 0, inertieDash);
+        rend.material.SetColor("_EmissionColor", initialColor);
         isDashing = false;
     }
-
-    private bool paused =false;
 
     public void Pause(InputAction.CallbackContext context)
     {
