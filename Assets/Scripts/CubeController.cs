@@ -12,8 +12,8 @@ public class CubeController : MonoBehaviour
     public ParticleGenerator doubleJumpPG;
     public ParticleGenerator leftJumpPG;
     public ParticleGenerator rightJumpPG;
-
-
+    public ParticleGenerator leftElectricityPG;
+    public ParticleGenerator rightElectricityPG;
 
     public PhysicObject po;
     public CameraShake cameraShake;
@@ -236,10 +236,12 @@ public class CubeController : MonoBehaviour
         Vector2 initialSpeed = po.speed;
         if (toRight)
         {
+            rightElectricityPG.PlayVFX();
             dashInput = 1.0f;
         }
         else
         {
+            leftElectricityPG.PlayVFX();
             dashInput = - 1.0f;
         }
         PhysicSystem.SetSpeedY(po,  0);
