@@ -16,6 +16,7 @@ public class CubeController : MonoBehaviour
 
 
     public PhysicObject po;
+    public CameraShake cameraShake;
     
     public float xMoveSpeed, wallslideSpeed, dashSpeed;
 
@@ -35,7 +36,7 @@ public class CubeController : MonoBehaviour
     private bool isMoving;
     
     public bool isDashing;
-    public float timeDashing;
+    public float dashDuration;
     
     // Start is called before the first frame update
     void Start()
@@ -213,21 +214,43 @@ public class CubeController : MonoBehaviour
         {
             if (canDash)
             {
-                StartCoroutine(TimerDash());
+                if (inputMove.x > 0.1)
+                {
+                    cameraShake.ShakeCamera();
+                    StartCoroutine(TimerDash(true));
+                }
+                else if (inputMove.x < -0.1)
+                {
+                    cameraShake.ShakeCamera();
+                    StartCoroutine(TimerDash(false));
+                }     
             }
-            
         }
     }
 
-    private IEnumerator TimerDash()
+    private IEnumerator TimerDash(bool toRight)
     {
         isDashing = true;
         canDash = false;
+        float dashInput;
+        Vector2 initialSpeed = po.speed;
+        if (toRight)
+        {
+            dashInput = 1.0f;
+        }
+        else
+        {
+            dashInput = - 1.0f;
+        }
         PhysicSystem.SetSpeedY(po,  0);
-        yield return new WaitForSeconds(timeDashing);
-        PhysicSystem.SetSpeed(po, new Vector2(inputMove.x * dashSpeed * (1-inertieDash), 0));
+        float timeElapsed = 0;
+        while (timeElapsed < dashDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            PhysicSystem.SetSpeed(po, new Vector2(dashInput * dashSpeed, 0));
+            yield return null;
+        }
+        PhysicSystem.TargetSpeedX(po, 0, inertieDash);
         isDashing = false;
     }
-
-
 }

@@ -44,7 +44,6 @@ public class CameraShake : MonoBehaviour
 
     public void ShakeCamera()
     {
-        
         canShake = true;
         _shakeTimer = shakeDuration;
     }
