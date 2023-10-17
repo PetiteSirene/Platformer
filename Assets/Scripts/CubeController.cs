@@ -17,6 +17,8 @@ public class CubeController : MonoBehaviour
 
     public PhysicObject po;
     public CameraShake cameraShake;
+
+    public float baseIntensity = 2.0f, intensityDuringDash = 3.0f;
     
     public float xMoveSpeed, wallslideSpeed, dashSpeed;
 

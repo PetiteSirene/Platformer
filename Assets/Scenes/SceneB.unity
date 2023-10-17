@@ -2530,7 +2530,7 @@ VisualEffect:
       - m_Value: 20
         m_Name: speed
         m_Overridden: 1
-      - m_Value: 0.5
+      - m_Value: 0.2
         m_Name: lifetime
         m_Overridden: 1
       - m_Value: 0.2
@@ -2552,7 +2552,7 @@ VisualEffect:
       - m_Value: {x: 2.5, y: 0.2, z: 2.5}
         m_Name: direction
         m_Overridden: 1
-      - m_Value: {x: 0.5, y: 0, z: 0}
+      - m_Value: {x: 0.5, y: 0, z: -3}
         m_Name: cone_transform_position
         m_Overridden: 1
       - m_Value: {x: 1, y: 1, z: 1}
@@ -2560,6 +2560,9 @@ VisualEffect:
         m_Overridden: 1
       - m_Value: {x: 0, y: 0, z: 90}
         m_Name: cone_transform_angles
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 50, z: 0}
+        m_Name: baseSpeed
         m_Overridden: 1
     m_Vector4f:
       m_Array:
@@ -3858,7 +3861,7 @@ VisualEffect:
       - m_Value: 20
         m_Name: speed
         m_Overridden: 1
-      - m_Value: 0.5
+      - m_Value: 0.2
         m_Name: lifetime
         m_Overridden: 1
       - m_Value: 0.2
@@ -3888,6 +3891,9 @@ VisualEffect:
         m_Overridden: 1
       - m_Value: {x: 0, y: 0, z: -90}
         m_Name: cone_transform_angles
+        m_Overridden: 1
+      - m_Value: {x: 0, y: -50, z: 0}
+        m_Name: baseSpeed
         m_Overridden: 1
     m_Vector4f:
       m_Array:
