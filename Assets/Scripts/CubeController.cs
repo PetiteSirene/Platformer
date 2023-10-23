@@ -8,11 +8,11 @@ using UnityEngine.InputSystem.HID;
 
 public class CubeController : MonoBehaviour
 {
-    public ParticleGenerator simpleJumpPG;
-    public ParticleGenerator doubleJumpPG;
-    public ParticleGenerator leftJumpPG;
-    public ParticleGenerator rightJumpPG;
-    public ParticleGenerator electricityPG;
+    public BurstPG simpleJumpPG;
+    public BurstPG doubleJumpPG;
+    public BurstPG leftJumpPG;
+    public BurstPG rightJumpPG;
+    public ContinuousPG electricityPG;
 
     public PhysicObject po;
     public CameraShake cameraShake;
@@ -53,6 +53,8 @@ public class CubeController : MonoBehaviour
         rend = GetComponent<Renderer>();
         initialColor = rend.material.GetColor("_EmissionColor");
         maxColor = initialColor * intensityModifierDuringDash;
+        electricityPG.PauseVFX();
+
     }
 
     // Update is called once per frame
@@ -277,9 +279,10 @@ public class CubeController : MonoBehaviour
             PhysicSystem.SetSpeed(po, new Vector2(dashInput * dashSpeed, 0));
             yield return null;
         }
-        PhysicSystem.TargetSpeedX(po, 0, inertieDash);
         rend.material.SetColor("_EmissionColor", initialColor);
         isDashing = false;
+        electricityPG.PauseVFX();
+        PhysicSystem.TargetSpeedX(po, 0, inertieDash);
     }
 
     public void Pause(InputAction.CallbackContext context)
