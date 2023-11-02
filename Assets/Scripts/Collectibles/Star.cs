@@ -6,7 +6,7 @@ public class Star : Collectible
 {
     public override void TriggerEffect()
     {
-        Debug.Log("eododoed");
+        GameManager.Instance.AddStar();
     }
 
 }
