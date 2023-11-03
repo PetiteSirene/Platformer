@@ -91,7 +91,8 @@ public class GameManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            UnityEditor.EditorApplication.isPlaying = false;
+            
+            //UnityEditor.EditorApplication.isPlaying = false;
             Application.Quit();
             
         }
@@ -99,7 +100,6 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        Debug.Log("endgame");
         menu.transform.GetChild(1).gameObject.SetActive(true);
         Time.timeScale = 0;
         victory = true;
