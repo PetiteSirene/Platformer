@@ -233,14 +233,15 @@ public class CubeController : MonoBehaviour
         {
             if (canDash)
             {
-                dash.Play();
                 if (inputMove.x > 0.1)
                 {
+                    dash.Play();
                     cameraShake.ShakeCamera();
                     StartCoroutine(TimerDash(true));
                 }
                 else if (inputMove.x < -0.1)
                 {
+                    dash.Play();
                     cameraShake.ShakeCamera();
                     StartCoroutine(TimerDash(false));
                 }     
