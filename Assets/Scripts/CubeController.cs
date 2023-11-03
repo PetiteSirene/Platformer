@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.SceneManagement;
 
 public class CubeController : MonoBehaviour
 {
@@ -60,8 +61,6 @@ public class CubeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
         
         bool isOnGround = po.isOnGround;
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,10 +16,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxStar;
     public TextMeshProUGUI textTMP;
     
-    private bool paused = false;
+    private bool paused = false, victory;
     
-    public GameObject menu;
-    
+    public GameObject menu, player;
+    private Vector3 playerPositionInit;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -30,7 +32,8 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);   
+        DontDestroyOnLoad(this.gameObject);
+        playerPositionInit = player.transform.position;
     }
 
     private void Update()
@@ -42,6 +45,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if(victory)
+                return;
             Time.timeScale = 1;
             menu.transform.GetChild(0).gameObject.SetActive(false);
         }
@@ -63,10 +68,20 @@ public class GameManager : MonoBehaviour
         textTMP.text = starsCount + "/" + maxStar;
     }
 
-    public void Pause(InputAction.CallbackContext context)
+    public void Esc(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
+            if (victory)
+            {
+                Time.timeScale = 1;
+                menu.transform.GetChild(1).gameObject.SetActive(false);
+                victory = false;
+                starsCount = 0;
+                player.transform.position = playerPositionInit;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                return;
+            }
             paused = !paused;
             
         }
@@ -85,5 +100,8 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("endgame");
+        menu.transform.GetChild(1).gameObject.SetActive(true);
+        Time.timeScale = 0;
+        victory = true;
     }
 }
