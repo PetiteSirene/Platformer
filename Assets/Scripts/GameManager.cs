@@ -103,6 +103,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        player.GetComponent<CubeController>().po.speed = Vector2.zero;
+        player.GetComponent<CubeController>().cameraShake.canShake = false;
         menu.transform.GetChild(1).gameObject.SetActive(true);
         Time.timeScale = 0;
         victory = true;

@@ -11,7 +11,7 @@ public class CameraShake : MonoBehaviour
     public float shakeDuration = 0.5f;
     public float shakeAmount = 10f;
 
-    private bool canShake = false;
+    public bool canShake = false;
     private float _shakeTimer;
 
     [SerializeField]private GameObject player;
