@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
                 menu.transform.GetChild(1).gameObject.SetActive(false);
                 victory = false;
                 starsCount = 0;
+                UpdateStarCount();
                 player.transform.position = playerPositionInit;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 return;
