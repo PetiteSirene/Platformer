@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class GameManager : MonoBehaviour
 
     private int starsCount = 0;
     [SerializeField] private int maxStar;
-    public TextMeshProUGUI textTMP;
+    public TextMeshProUGUI textTMPStartCount, textTMPTimer, TextTMPTimerEndMenu;
+
+    private float timer;
     
     private bool paused = false, victory;
     
@@ -52,6 +55,14 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             menu.transform.GetChild(0).gameObject.SetActive(false);
         }
+
+        timer += Time.deltaTime;
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        int seconds = Mathf.FloorToInt(timer - minutes * 60);
+
+        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        textTMPTimer.text = niceTime;
+        TextTMPTimerEndMenu.text = "Timer : " + niceTime;
     }
 
 
@@ -68,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateStarCount()
     {
-        textTMP.text = starsCount + "/" + maxStar;
+        textTMPStartCount.text = starsCount + "/" + maxStar;
     }
 
     public void Esc(InputAction.CallbackContext context)
@@ -83,6 +94,7 @@ public class GameManager : MonoBehaviour
                 starsCount = 0;
                 UpdateStarCount();
                 player.transform.position = playerPositionInit;
+                timer = 0;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 return;
             }
