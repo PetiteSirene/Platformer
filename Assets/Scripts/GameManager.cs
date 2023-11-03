@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxStar;
     public TextMeshProUGUI textTMP;
     
+    private bool paused = false;
+    
+    public GameObject menu;
+    
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -28,7 +33,21 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);   
     }
 
-    
+    private void Update()
+    {
+        if (paused)
+        {
+            menu.transform.GetChild(0).gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            menu.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+
+
     public void AddStar()
     {
         starsCount ++;
@@ -46,10 +65,20 @@ public class GameManager : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
-        Debug.Log("yeah");
         if (context.phase == InputActionPhase.Started)
         {
-            Debug.Log("yo");
+            paused = !paused;
+            
+        }
+    }
+
+    public void Quit(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+            
         }
     }
 

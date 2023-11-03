@@ -29,7 +29,7 @@ public class CubeController : MonoBehaviour
     private bool canDoubleJump = true;
     public bool canDash = true;
 
-     private bool paused = false;
+     
 
    
     public float gravityScale;
@@ -39,7 +39,7 @@ public class CubeController : MonoBehaviour
     public bool isDashing;
     public float dashDuration;
 
-    public GameObject menu;
+    
 
     private Renderer rend;
     private Color initialColor;
@@ -61,14 +61,8 @@ public class CubeController : MonoBehaviour
     void Update()
     {
 
-        if (paused)
-        {
-            menu.transform.GetChild(0).gameObject.SetActive(true);
-            Time.timeScale = 0;
-            return;
-        }
-        Time.timeScale = 1;
-        menu.transform.GetChild(0).gameObject.SetActive(false);
+        
+        
         bool isOnGround = po.isOnGround;
 
         
@@ -285,12 +279,5 @@ public class CubeController : MonoBehaviour
         PhysicSystem.TargetSpeedX(po, 0, inertieDash);
     }
 
-    public void Pause(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            paused = !paused;
-            
-        }
-    }
+    
 }
