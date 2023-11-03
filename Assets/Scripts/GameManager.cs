@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
     public static GameManager Instance => instance;
 
+    public AudioSource startCollect;
+
     private int starsCount = 0;
     [SerializeField] private int maxStar;
     public TextMeshProUGUI textTMP;
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void AddStar()
     {
         starsCount ++;
+        startCollect.Play();
         UpdateStarCount();
         if (starsCount == maxStar)
         {

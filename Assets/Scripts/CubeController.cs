@@ -17,6 +17,7 @@ public class CubeController : MonoBehaviour
 
     public PhysicObject po;
     public CameraShake cameraShake;
+    public AudioSource jump, land, dash;
 
     public float intensityModifierDuringDash = 1.5f;
     
@@ -173,23 +174,27 @@ public class CubeController : MonoBehaviour
         {
             if (po.isOnGround)
             {
+                jump.Play();
                 simpleJumpPG.PlayVFX();
                 PhysicSystem.SetSpeedY(po, baseJumpForce);
             }
             else if(po.isOnLeftWall)
             {
+                jump.Play();
                 leftJumpPG.PlayVFX();
                 PhysicSystem.SetSpeedX(po, wallJumpXForce);
                 PhysicSystem.SetSpeedY(po, wallJumpYForce);
             }
             else if(po.isOnRightWall)
             {
+                jump.Play();
                 rightJumpPG.PlayVFX();
                 PhysicSystem.SetSpeedX(po, -wallJumpXForce);
                 PhysicSystem.SetSpeedY(po, wallJumpYForce);
             }
             else if (canDoubleJump)
             {
+                jump.Play();
                 doubleJumpPG.PlayVFX();
                 canDoubleJump = false;
                 if (isMoving)
@@ -228,6 +233,7 @@ public class CubeController : MonoBehaviour
         {
             if (canDash)
             {
+                dash.Play();
                 if (inputMove.x > 0.1)
                 {
                     cameraShake.ShakeCamera();
