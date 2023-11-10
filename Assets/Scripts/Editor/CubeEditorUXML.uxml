@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label tabindex="-1" text="Vitesses" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 15px; margin-bottom: 5px; margin-top: 10px;" />
+    <ui:Slider picking-mode="Ignore" label="Vitesse de course" value="10" high-value="40" binding-path="xMoveSpeed" />
+    <ui:FloatField label=" " value="42,2" binding-path="xMoveSpeed" />
+    <ui:Slider picking-mode="Ignore" label="Vitesse du Wallslide" value="3" high-value="20" binding-path="wallslideSpeed" />
+    <ui:FloatField label=" " value="42,2" binding-path="wallslideSpeed" />
+    <ui:Slider picking-mode="Ignore" label="Vitesse du Dash" value="50" high-value="200" binding-path="dashSpeed" />
+    <ui:FloatField label=" " value="42,2" binding-path="dashSpeed" />
+    <ui:Label tabindex="-1" text="Inerties" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 15px; margin-top: 20px; margin-bottom: 5px;" />
+    <ui:Slider picking-mode="Ignore" label="Inertie au début" value="0.8" high-value="1" binding-path="inertieStartOnGround" />
+    <ui:FloatField label=" " value="42,2" binding-path="inertieStartOnGround" readonly="true" style="height: auto;" />
+    <ui:Slider picking-mode="Ignore" label="Inertie à l&apos;arrêt" value="0.5" high-value="1" binding-path="inertieEndOnGround" />
+    <ui:FloatField label=" " value="42,2" binding-path="inertieEndOnGround" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Inertie dans l&apos;air" value="0.96" high-value="1" binding-path="inertieInAir" />
+    <ui:FloatField label=" " value="42,2" binding-path="inertieInAir" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Inertie sur la glace" value="0.99" high-value="1" binding-path="inertieOnIce" low-value="0.8" />
+    <ui:FloatField label=" " value="42,2" binding-path="inertieOnIce" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Inertie du Wallslide" value="0.96" high-value="1" binding-path="inertieWallslide" />
+    <ui:FloatField label=" " value="42,2" binding-path="inertieWallslide" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Inertie du Dash" value="0.2" high-value="1" binding-path="inertieDash" />
+    <ui:FloatField label=" " value="42,2" binding-path="inertieDash" readonly="true" />
+    <ui:Label tabindex="-1" text="Force de saut" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 15px; margin-top: 20px; margin-bottom: 5px;" />
+    <ui:Slider picking-mode="Ignore" label="Saut de base" value="15" high-value="40" binding-path="baseJumpForce" direction="Horizontal" />
+    <ui:FloatField label=" " value="42,2" binding-path="baseJumpForce" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Double saut (axe X)" value="10" high-value="25" binding-path="doubleJumpXForce" />
+    <ui:FloatField label=" " value="42,2" binding-path="doubleJumpXForce" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Double saut (axe Y)" value="12" high-value="25" binding-path="doubleJumpYForce" />
+    <ui:FloatField label=" " value="42,2" binding-path="doubleJumpYForce" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Saut mural (axe X)" value="5" high-value="25" binding-path="wallJumpXForce" />
+    <ui:FloatField label=" " value="42,2" binding-path="wallJumpXForce" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Saut mural (axe Y)" value="12" high-value="25" binding-path="wallJumpYForce" />
+    <ui:FloatField label=" " value="42,2" binding-path="wallJumpYForce" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Gravité" value="30" high-value="50" binding-path="gravityScale" />
+    <ui:FloatField label=" " value="42,2" binding-path="gravityScale" readonly="true" />
+    <ui:Label tabindex="-1" text="Autres" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 15px; margin-top: 20px; margin-bottom: 5px;" />
+    <ui:Slider picking-mode="Ignore" label="Durée du Dash" value="0.2" high-value="1" binding-path="dashDuration" />
+    <ui:FloatField label=" " value="42,2" binding-path="dashDuration" readonly="true" />
+    <ui:Slider picking-mode="Ignore" label="Lumière du Dash" value="20" high-value="30" binding-path="intensityModifierDuringDash" />
+    <ui:FloatField label=" " value="42,2" binding-path="intensityModifierDuringDash" readonly="true" />
+</ui:UXML>

@@ -8678,7 +8678,11 @@ PrefabInstance:
       objectReference: {fileID: 519420035}
     - target: {fileID: 9090707340585785625, guid: 01ad70437e5eca14e9db93dbb19fc508, type: 3}
       propertyPath: inertieOnIce
-      value: 0.99
+      value: 0.99000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090707340585785625, guid: 01ad70437e5eca14e9db93dbb19fc508, type: 3}
+      propertyPath: inertieStartOnGround
+      value: 0.79999995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
